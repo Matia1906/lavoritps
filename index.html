@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<link rel="stylesheet" href="style.css">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANAGRAFICA 1.1</title>
+</head>
+<body>
+    <div class="start-container">
+        <h1>ANAGRAFICA UTENTE</h1>
+    </div>
+    <div class="container">
+        <h1>INFORMAZIONI:</h1>
+        <h3>Nome:</h3>
+        <div class="nome">
+            <input type="text" id="inputnome" placeholder="inserisci nome...">
+            <p id="nome"></p>
+        </div>
+        <h3>Cognome:</h3>
+        <div class="cognome">
+            <input type="text" id="inputcognome" placeholder="inserisci cognome...">
+            <p id="cognome"></p>
+        </div>
+        <h3>Indirizzo:</h3>
+        <div class="indirizzo">
+            <input type="text" id="inputindirizzo" placeholder="inserisci indirizzo...">
+            <p id="indirizzo"></p>
+        </div>
+        <h3>Città:</h3>
+        <div class="città">
+            <input type="text" id="inputcittà" placeholder="inserisci città...">
+            <p id="città"></p>
+        </div>
+        <h3>CAP:</h3>
+        <div class="cap">
+            <input type="text" id="inputcap" placeholder="inserisci cap...">
+            <p id="cap"></p>
+        </div>
+        <h3>Anno di nascita:</h3>
+        <div class="nascita">
+            <input type="text" id="inputnascita" placeholder="inserisci anno di nascita...">
+            <p id="nascita"></p>
+        </div>
+        <p id="generazione" style="margin-left:130px;color:white;"></p>
+    </div>
+    <input id="bottone" type="button" value="verifica" onclick="stampa()">
+</body>
+</html>
+
+
+<script>
+    function stampa() {
+        var print = document.getElementById("inputnome").value;
+        document.getElementById("nome").innerHTML = print;
+        var print = document.getElementById("inputcognome").value;
+        document.getElementById("cognome").innerHTML = print;
+        var print = document.getElementById("inputindirizzo").value;
+        document.getElementById("indirizzo").innerHTML = print;
+        var print = document.getElementById("inputcittà").value;
+        document.getElementById("città").innerHTML = print;
+        var print = document.getElementById("inputcap").value;
+        document.getElementById("cap").innerHTML = print;
+        var print = document.getElementById("inputnascita").value;
+        document.getElementById("nascita").innerHTML = print;
+
+
+        var anno = parseInt(print);
+        var generazione = "";
+        switch (true) {
+            case (anno >= 1901 && anno <= 1927):
+                generazione = "Greatest Generation";
+                break;
+            case (anno >= 1928 && anno <= 1945):
+                generazione = "Generazione Silenziosa";
+                break;
+            case (anno >= 1946 && anno <= 1964):
+                generazione = "Baby Boomers";
+                break;
+            case (anno >= 1965 && anno <= 1980):
+                generazione = "Generazione X";
+                break;
+            case (anno >= 1981 && anno <= 1996):
+                generazione = "Millennials";
+                break;
+            case (anno >= 1997 && anno <= 2012):
+                generazione = "Generazione Z";
+                break;
+            case (anno >= 2013):
+                generazione = "Generazione Alpha";
+                break;
+            case (isNaN(anno)):
+                generazione = "Inserisci un anno valido";
+                break;
+            default:
+                generazione = "Anno non valido";
+        }
+        document.getElementById("generazione").innerHTML = generazione;
+    }
+</script>
+
 
