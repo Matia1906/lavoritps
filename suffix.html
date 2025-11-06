@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subnet Mask da Prefix</title>
+  <style>
+    body{ font-family: Arial, sans-serif; }
+    .container{
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .box{
+      border: 1px solid black;
+      width: 300px;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+    .output{
+      min-width: 260px;
+      padding: 15px;
+      border: 1px solid #ffffff;
+      background: #f9f9f9;
+      box-sizing: border-box;
+    }
+    input[type="number"]{
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+      padding: 6px;
+    }
+    button{
+      margin-top: 8px;
+      padding: 6px 10px;
+      margin-right: 5px;
+    }
+  </style>
+  <script>
+    function generaMask() {
+      const prefix = parseInt(document.getElementById("prefix").value);
+
+      if (isNaN(prefix) || prefix < 0 || prefix > 32) {
+        document.getElementById("risultato").innerText = "Inserisci un valore tra 0 e 32.";
+        return;
+      }
+
+      const fullOctets = Math.floor(prefix / 8);
+      const remBits = prefix % 8;
+      const octets = [];
+
+      for (let i = 0; i < 4; i++) {
+        let bits;
+        if (i < fullOctets) bits = 8;          
+        else if (i === fullOctets) bits = remBits; 
+        else bits = 0;                        
+
+        const bin = "1".repeat(bits).padEnd(8, "0");
+        octets.push(bin);
+      }
+
+      document.getElementById("risultato").innerHTML =
+        "Prefix: /" + prefix + "<br>" +
+        "Subnet mask (binario):<br>" +
+        octets.join(" . ") + "<br>" +
+        "Subnet mask (decimale): " + 
+        octets.map(b => parseInt(b, 2)).join(".");
+    }
+
+    function suffix()  {
+      const prefix = parseInt(document.getElementById("prefix").value);
+
+      if (isNaN(prefix) || prefix < 0 || prefix > 32) {
+        document.getElementById("esponente").innerText = "n";
+        document.getElementById("totale").innerText = "Valore non valido";
+        return;
+      }
+
+      const esp = 32 - prefix;
+      const totale = Math.pow(2, esp) - 2;
+
+      document.getElementById("esponente").innerText = esp;
+      document.getElementById("totale").innerText = totale;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="box">
+      <h3>Inserisci il prefix number</h3>
+      <input type="number" id="prefix" min="0" max="32" placeholder="es. 24">
+      <button onclick="suffix()">Genera suffisso</button>
+      <button onclick="generaMask()">Subnet</button>
+    </div>
+
+    <div class="output">
+      <p>2<sup id="esponente">n</sup> - 2 = <span id="totale"></span></p>
+      <p id="risultato"></p>
+    </div>
+  </div>
+</body>
+</html>
