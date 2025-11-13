@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<title>modulino</title>
+<script>
+function stampa(){
+
+var n = document.getElementById('inputnome').value
+document.getElementById("nome").innerHTML=n
+
+let c = document.getElementById("inputcognome").value
+document.getElementById("cognome").innerHTML=c
+
+let i = document.getElementById('inputindirizzo').value
+document.getElementById("indirizzo").innerHTML = i
+
+let s = document.querySelector('input[name=sesso]:checked')
+document.getElementById('sesso').innerHTML = s ? s.value : "?"
+
+let v = document.querySelectorAll("input[name='veicolo']:checked")
+let vv=[]
+v.forEach(e=>vv.push(e.value))
+document.getElementById("veicoli").innerHTML = vv.length?vv.join(", "):"nessuno"
+
+let prov = document.getElementById("provincia").value
+document.getElementById("provinciaScelta").innerHTML = prov
+
+let sp = document.querySelectorAll("input[name=sport]:checked")
+let lista=[]
+sp.forEach(l=>lista.push(l.value))
+document.getElementById("sportPraticati").innerHTML = lista.length?lista.join(", "):"niente"
+}
+</script>
+</head>
+
+<body>
+
+<h2>Modulo...forse</h2>
+
+<p>nome<p>
+<div class=nome>
+<input id=inputnome type=text>
+<p id=nome></p>
+</div>
+
+<p>cognome<p>
+<div class=cognome>
+<input id="inputcognome" type=text>
+<p id="cognome">
+</div>
+
+<p>via</p>
+<div class=indirizzo>
+<input id=inputindirizzo>
+<p id="indirizzo">
+</div>
+
+<p>sesso</p>
+<div class=sesso>
+<input type=radio name="sesso" value=Maschio> M
+<input type=radio name=sesso value=Femmina> F
+<input type=radio name=sesso value=Altro> boh
+<p id="sesso">
+</div>
+
+<p>veicoli</p>
+<div class=veicoli>
+<input type=checkbox name=veicolo value=Auto>Auto
+<input type=checkbox name=veicolo value=Moto>Moto
+<input type=checkbox name=veicolo value=Bici>Bici
+<p id=veicoli>
+</div>
+
+<p>provincia</p>
+<div class=provincia>
+<select id=provincia>
+<option>Torino
+<option>Milano
+<option>Roma
+<option>Napoli
+<option>Bari
+</select>
+<p id=provinciaScelta>
+</div>
+
+<p>sport</p>
+<div class=sport>
+<input type=checkbox name=sport value=Calcio>Calcio
+<input type=checkbox name=sport value=Basket>Basket
+<input type=checkbox name=sport value=Pallavolo>Palla
+<input type=checkbox name=sport value=Tennis>Tennis
+<input type=checkbox name=sport value=Biliardo>Biliardo
+<p id=sportPraticati>
+</div>
+
+<input id=bottone type=button value="cliccami" onclick="stampa()">
+
+</body>
+
+<style>
+body{font-family:arial;margin:25px}
+.nome,.cognome,.indirizzo,.sesso,.veicoli,.provincia,.sport{display:flex;align-items:center;margin-bottom:8px}
+p{margin:2px}
+#bottone{margin-top:15px;padding:5px 9px;background:#f1f1f1;border:1px solid #aaa;cursor:pointer}
+</style>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<title>modulino</title>
+<script>
+function stampa(){
+
+var n = document.getElementById('inputnome').value
+document.getElementById("nome").innerHTML=n
+
+let c = document.getElementById("inputcognome").value
+document.getElementById("cognome").innerHTML=c
+
+let i = document.getElementById('inputindirizzo').value
+document.getElementById("indirizzo").innerHTML = i
+
+let s = document.querySelector('input[name=sesso]:checked')
+document.getElementById('sesso').innerHTML = s ? s.value : "?"
+
+let v = document.querySelectorAll("input[name='veicolo']:checked")
+let vv=[]
+v.forEach(e=>vv.push(e.value))
+document.getElementById("veicoli").innerHTML = vv.length?vv.join(", "):"nessuno"
+
+let prov = document.getElementById("provincia").value
+document.getElementById("provinciaScelta").innerHTML = prov
+
+let sp = document.querySelectorAll("input[name=sport]:checked")
+let lista=[]
+sp.forEach(l=>lista.push(l.value))
+document.getElementById("sportPraticati").innerHTML = lista.length?lista.join(", "):"niente"
+}
+</script>
+</head>
+
+<body>
+
+<h2>Modulo...forse</h2>
+
+<p>nome<p>
+<div class=nome>
+<input id=inputnome type=text>
+<p id=nome></p>
+</div>
+
+<p>cognome<p>
+<div class=cognome>
+<input id="inputcognome" type=text>
+<p id="cognome">
+</div>
+
+<p>via</p>
+<div class=indirizzo>
+<input id=inputindirizzo>
+<p id="indirizzo">
+</div>
+
+<p>sesso</p>
+<div class=sesso>
+<input type=radio name="sesso" value=Maschio> M
+<input type=radio name=sesso value=Femmina> F
+<input type=radio name=sesso value=Altro> boh
+<p id="sesso">
+</div>
+
+<p>veicoli</p>
+<div class=veicoli>
+<input type=checkbox name=veicolo value=Auto>Auto
+<input type=checkbox name=veicolo value=Moto>Moto
+<input type=checkbox name=veicolo value=Bici>Bici
+<p id=veicoli>
+</div>
+
+<p>provincia</p>
+<div class=provincia>
+<select id=provincia>
+<option>Torino
+<option>Milano
+<option>Roma
+<option>Napoli
+<option>Bari
+</select>
+<p id=provinciaScelta>
+</div>
+
+<p>sport</p>
+<div class=sport>
+<input type=checkbox name=sport value=Calcio>Calcio
+<input type=checkbox name=sport value=Basket>Basket
+<input type=checkbox name=sport value=Pallavolo>Palla
+<input type=checkbox name=sport value=Tennis>Tennis
+<input type=checkbox name=sport value=Biliardo>Biliardo
+<p id=sportPraticati>
+</div>
+
+<input id=bottone type=button value="cliccami" onclick="stampa()">
+
+</body>
+
+<style>
+body{font-family:arial;margin:25px}
+.nome,.cognome,.indirizzo,.sesso,.veicoli,.provincia,.sport{display:flex;align-items:center;margin-bottom:8px}
+p{margin:2px}
+#bottone{margin-top:15px;padding:5px 9px;background:#f1f1f1;border:1px solid #aaa;cursor:pointer}
+</style>
+</html>
