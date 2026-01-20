@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Anagrafica3.0</h1>
+<h2>Usando un oggetto</h2>
+
+
+<p id="demo1"></p>
+<p id="demo2"></p>
+
+
+<script>
+const persons = [{
+  firstName: "nome",
+  lastName: "cognome",
+  age: 50,
+  eyeColor: "blu"
+},
+{
+  firstName: "pinco",
+  lastName: "pallino",
+  age: 40,
+  eyeColor: "marroni"
+}];
+
+
+document.getElementById("demo1").innerHTML =
+persons[0].firstName +" "+persons[0].lastName +" ha " + persons[0].age + " anni e ha gli occhi "+ persons[0].eyeColor;
+
+
+document.getElementById("demo2").innerHTML =
+persons[1].firstName +" "+persons[1].lastName +" ha " + persons[1].age + " anni e ha gli occhi "+ persons[1].eyeColor;
+
+
+
+
+</script>
+
+
+</body>
+</html>
+
+
+
