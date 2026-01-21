@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio Anagrafica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="intestazione">
+        <h1>ANAGRAFICA</h1>  
+        <p>Inserisci i tuoi dati all'interno dei campi dedicati</p>      
+    </div>
+
+    <div class="container">
+        <section class="paragrafo">
+            <p><strong>INSERISCI I TUOI DATI</strong>.<br> 
+            Per pulire le stampe premi la X rossa.</p>
+            <button class="btn-delete" onclick="cancella()">X</button>
+        </section>
+
+        <section class="input-group">
+            <h3>NOME:</h3>
+            <input id="input-nome" type="text" placeholder="Es. Francesco">
+        </section>
+
+        <section class="input-group">
+            <h3>COGNOME:</h3>
+            <input id="input-cognome" type="text" placeholder="Es. Cursi">
+        </section> 
+
+        <section class="input-group">
+            <h3>ETA':</h3>
+            <input id="input-eta" type="number" placeholder="Es. 15">
+        </section>
+
+        <section class="input-group">
+            <h3>COLORE PREFERITO:</h3>
+            <input id="input-colore" type="text" placeholder="Es. Giallo">
+        </section>
+
+        <section class="bottone">
+            <button class="btn-stampa" onclick="stampa()">STAMPA</button>
+        </section>
+
+        <section class="output" id="output">
+            <p>I tuoi dati:</p>
+            <hr>
+            <div id="dati"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

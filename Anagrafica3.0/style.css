@@ -1,0 +1,150 @@
+ {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px 0;
+    background-color: #f0f0f0;
+}
+
+.intestazione {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 4px rgb(181, 181, 181);
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 32px;
+    padding: 10px;
+    padding-top: 2px;
+    text-align: center;
+}
+
+.intestazione h1 {
+    margin-bottom: 0;
+    font-size: 2.5rem;
+}
+
+.intestazione p {
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 3%;
+    padding: 20px;
+    border-radius: 32px;
+    box-shadow: 0px 0px 10px 4px rgb(181, 181, 181);
+}
+
+.paragrafo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.paragrafo p {
+    flex: 1;
+    text-align: left;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.btn-delete {
+    flex-shrink: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ff2525;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px 5px rgba(255, 77, 77, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group h3 {
+    margin-bottom: 5px;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #dfdfdf;
+    border-radius: 10px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #007bff;
+}
+
+.btn-stampa {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px 5px rgba(40, 167, 69, 0.3);
+    transition: transform 0.2s;
+}
+
+.btn-stampa:hover {
+    transform: translateY(-2px);
+}
+
+.output {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: rgb(235, 235, 235);
+    box-shadow: 0px 0px 10px 1px rgb(181, 181, 181);
+    min-height: 120px;
+    border-radius: 32px;
+    padding: 20px;
+}
+
+.output hr {
+    width: 80%;
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0;
+}
+
+#dati {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+@media (max-width: 520px) {
+    .container {
+        margin-top: 10%;
+        width: 95%;
+    }
+}
