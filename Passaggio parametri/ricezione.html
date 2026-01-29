@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina di Ricezione</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        #output {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #999;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Parametri Ricevuti</h2>
+    <div id="output">In attesa di elaborazione...</div>
+
+    <script>
+        var queryString = window.location.search;
+
+        if (queryString) {
+            var parametriStringa = queryString.substring(1);
+            var coppie = parametriStringa.split("&");
+            var htmlContent = "<ul>";
+
+            for (var i = 0; i < coppie.length; i++) {
+                var singoloElemento = coppie[i].split("=");
+                var chiave = singoloElemento[0];
+                var valore = decodeURIComponent(singoloElemento[1]);
+
+                htmlContent += "<li><strong>" + chiave + ":</strong> " + valore + "</li>";
+            }
+
+            htmlContent += "</ul>";
+            document.getElementById("output").innerHTML = htmlContent;
+        } else {
+            document.getElementById("output").innerText = "Nessun parametro trovato nellURL";
+        }
+    </script>
+
+</body>
+</html>

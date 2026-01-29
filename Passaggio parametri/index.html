@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina di Invio</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+        }
+
+        input {
+            display: block;
+            margin-bottom: 10px;
+            width: 90%;
+            padding: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Inserisci i Dati</h2>
+
+    <div class="form-container">
+        <form action="ricezione.html" method="GET">
+            <label for="param1">Nome:</label>
+            <input type="text" id="param1" name="nome" placeholder="Es. Mario" required>
+
+            <label for="param2">Citta:</label>
+            <input type="text" id="param2" name="citta" placeholder="Es. Roma" required>
+
+            <button type="submit">Spedisci Dati</button>
+        </form>
+    </div>
+
+</body>
+</html>
