@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzazione Tabellare</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; max-width: 800px; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        button { background-color: #ff4d4d; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 4px;}
+    </style>
+</head>
+<body>
+
+    <h2>Elenco Persone Registrate</h2>
+    <a href="inserimento.html">Torna indietro</a>
+    <br><br>
+    
+    <div id="container-tabella"></div>
+    
+    <br>
+    <button onclick="cancellaTutto()">Svuota Elenco</button>
+
+    <script>
+        window.onload = function() {
+            stampaTabella();
+        };
+
+        function stampaTabella() {
+            const container = document.getElementById("container-tabella");
+            const elencoStringa = localStorage.getItem("elenco");
+
+            if (!elencoStringa) {
+                container.innerHTML = "<p>Nessun dato presente.</p>";
+                return;
+            }
+
+            const elenco = JSON.parse(elencoStringa);
+
+            if (elenco.length === 0) {
+                container.innerHTML = "<p>Elenco vuoto.</p>";
+                return;
+            }
+
+            let htmlTabella = "<table><thead><tr><th>Nome</th><th>Cognome</th><th>Email</th><th>Eta'</th></tr></thead><tbody>";
+
+            elenco.forEach(function(persona) {
+                htmlTabella += "<tr><td>" + persona.nome + "</td><td>" + persona.cognome + "</td><td>" + persona.email + "</td><td>" + persona.eta + "</td></tr>";
+            });
+
+            htmlTabella += "</tbody></table>";
+            container.innerHTML = htmlTabella;
+        }
+
+        function cancellaTutto() {
+           if(confirm("Sei sicuro di voler cancellare tutti i dati?")) {
+               localStorage.removeItem("elenco");
+               stampaTabella();
+           }
+        }
+    </script>
+</body>
+</html>

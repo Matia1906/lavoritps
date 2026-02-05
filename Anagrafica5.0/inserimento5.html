@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserimento Dati</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .form-group { margin-bottom: 10px; }
+        label { display: inline-block; width: 100px; }
+        input { padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 5px 15px; cursor: pointer; background-color: #4CAF50; color: white; border: none; }
+        hr { margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <h2>Inserisci Dati Personali</h2>
+
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Es. Gianfranco">
+    </div>
+    <div class="form-group">
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" placeholder="Es. Curzico">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" placeholder="curzico.gianfranco@scuolatoilet.com">
+    </div>
+    <div class="form-group">
+        <label for="eta">Eta':</label>
+        <input type="number" id="eta" placeholder="Es. 67">
+    </div>
+
+    <button onclick="salvaDati()">Salva</button>
+    
+    <hr>
+    <a href="visualizzazione.html">Vai alla lista</a>
+
+    <script>
+        function salvaDati() {
+            // Recupero valori
+            const nome = document.getElementById("nome").value.trim();
+            const cognome = document.getElementById("cognome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const eta = document.getElementById("eta").value.trim();
+
+            // Definizioni Regex
+            const regexLettere = /^[a-zA-Z\s]+$/; // Solo lettere e spazi
+            // Email: caratteri + @ + caratteri + . + estensione tra 2 e 6
+            const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            const regexEta = /^[0-9]+$/; // Solo numeri
+
+            // Validazione
+            if (!regexLettere.test(nome)) {
+                alert("Il Nome deve contenere solo lettere.");
+                return;
+            }
+            if (!regexLettere.test(cognome)) {
+                alert("Il Cognome deve contenere solo lettere.");
+                return;
+            }
+            if (!regexEmail.test(email)) {
+                alert("Inserire una Email valida (es. curzico.gianfranco@scuolatoilet.com con estensione tra 2 e 6 caratteri).");
+                return;
+            }
+            if (!regexEta.test(eta) || eta <= 0) {
+                alert("L'Età deve essere un numero valido.");
+                return;
+            }
+
+            // Oggetto persona
+            const persona = {
+                nome: nome,
+                cognome: cognome,
+                email: email,
+                eta: eta
+            };
+
+            // Salvataggio in LocalStorage
+            let elencoStringa = localStorage.getItem("elenco");
+            let elenco = elencoStringa ? JSON.parse(elencoStringa) : [];
+            elenco.push(persona);
+            localStorage.setItem("elenco", JSON.stringify(elenco));
+
+            alert("Dati salvati con successo!");
+            
+            // Pulizia campi
+            document.querySelectorAll('input').forEach(input => input.value = '');
+        }
+    </script>
+</body>
+</html>
