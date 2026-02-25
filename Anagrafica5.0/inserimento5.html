@@ -41,19 +41,19 @@
 
     <script>
         function salvaDati() {
-            // Recupero valori
+
             const nome = document.getElementById("nome").value.trim();
             const cognome = document.getElementById("cognome").value.trim();
             const email = document.getElementById("email").value.trim();
             const eta = document.getElementById("eta").value.trim();
 
-            // Definizioni Regex
-            const regexLettere = /^[a-zA-Z\s]+$/; // Solo lettere e spazi
-            // Email: caratteri + @ + caratteri + . + estensione tra 2 e 6
+  
+            const regexLettere = /^[a-zA-Z\s]+$/;
+      
             const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            const regexEta = /^[0-9]+$/; // Solo numeri
+            const regexEta = /^[0-9]+$/;
 
-            // Validazione
+     
             if (!regexLettere.test(nome)) {
                 alert("Il Nome deve contenere solo lettere.");
                 return;
@@ -71,7 +71,7 @@
                 return;
             }
 
-            // Oggetto persona
+
             const persona = {
                 nome: nome,
                 cognome: cognome,
@@ -79,7 +79,7 @@
                 eta: eta
             };
 
-            // Salvataggio in LocalStorage
+
             let elencoStringa = localStorage.getItem("elenco");
             let elenco = elencoStringa ? JSON.parse(elencoStringa) : [];
             elenco.push(persona);
@@ -87,10 +87,11 @@
 
             alert("Dati salvati con successo!");
             
-            // Pulizia campi
+
             document.querySelectorAll('input').forEach(input => input.value = '');
         }
     </script>
 </body>
 
 </html>
+
