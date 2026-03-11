@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Importa CSV - Anagrafica</title>
+
+<style>
+
+body{
+    background-color:#2c2c2c;
+    font-family:Arial;
+    padding:20px;
+}
+
+h2{
+    color:#eeeeee;
+}
+
+/* contenitore responsive */
+#contenitore{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+/* blocchi persona */
+.blocco{
+    background:white;
+    border:2px solid #040008;
+    border-radius:10px;
+    padding:15px;
+    width:200px;
+    box-shadow:2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.blocco p{
+    margin:4px 0;
+    color:#333;
+}
+
+input{
+    margin-bottom:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Import Anagrafica CSV</h2>
+
+<input type="file" id="fileCSV" accept=".csv">
+
+<div id="contenitore"></div>
+
+<script>
+
+document.getElementById("fileCSV").addEventListener("change", leggiFile);
+
+function leggiFile(evento){
+
+    var file = evento.target.files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = function(e){
+
+        var contenuto = e.target.result;
+
+        var righe = contenuto.split("\n");
+
+        var elenco = [];
+
+        for(var i=1;i<righe.length;i++){
+
+            var dati = righe[i].split(";");
+
+            if(dati.length >=5){
+
+                var persona={
+                    n:dati[0],
+                    c:dati[1],
+                    e:dati[2],
+                    cit:dati[3],
+                    cap:dati[4]
+                };
+
+                elenco.push(persona);
+            }
+        }
+
+        creaBlocchiRicorsivi(elenco,0);
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+
+function creaBlocchiRicorsivi(elenco, indice){
+
+    if(indice >= elenco.length){
+        return;
+    }
+
+    var contenitore=document.getElementById("contenitore");
+
+    var blocco=document.createElement("div");
+    blocco.className="blocco";
+
+    blocco.innerHTML=
+        "<p><b>Nome:</b> "+elenco[indice].n+"</p>"+
+        "<p><b>Cognome:</b> "+elenco[indice].c+"</p>"+
+        "<p><b>Email:</b> "+elenco[indice].e+"</p>"+
+        "<p><b>Città:</b> "+elenco[indice].cit+"</p>"+
+        "<p><b>CAP:</b> "+elenco[indice].cap+"</p>";
+
+    contenitore.appendChild(blocco);
+
+    creaBlocchiRicorsivi(elenco, indice+1);
+
+}
+
+</script>
+
+</body>
+</html>
