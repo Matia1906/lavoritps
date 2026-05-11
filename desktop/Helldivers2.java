@@ -10,15 +10,10 @@ import java.util.LinkedList;
 // ============================================================
 // SEZIONE 1 — COMPONENTE CUSTOM: ToggleSwitch
 // ============================================================
-// Poiché Swing non ha uno switch nativo, lo creiamo da zero.
-// Estende JComponent e disegna uno switch animato via paintComponent().
-// Espone lo stesso contratto di JToggleButton: isSelected(), setSelected(),
-// setEnabled(), addActionListener() — così il resto del codice non cambia.
-
 class ToggleSwitch extends JComponent {
 
     private boolean selected = false;
-    private float thumbPosition = 0f;   // 0.0 = sinistra (OFF), 1.0 = destra (ON)
+    private float thumbPosition = 0f;
     private Timer animationTimer;
 
     private static final int WIDTH  = 56;
