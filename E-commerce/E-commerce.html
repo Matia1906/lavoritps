@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* stile basato sul file s.txt */
+body{ background-color:#2c2c2c; font-family:Arial; padding:20px; color:#eeeeee; }
+#contenitore{ display:flex; flex-wrap:wrap; gap:15px; }
+.blocco{ background:white; border:2px solid #040008; border-radius:10px; padding:15px; width:200px; color:#333; box-shadow:2px 2px 5px rgba(0,0,0,0.3); }
+.blocco img{ width:100%; height:110px; object-fit:contain; margin-bottom:10px; }
+#area-carrello{ background:white; color:black; padding:20px; margin-top:30px; border-radius:10px; border:2px solid #040008; }
+button{ cursor:pointer; width:100%; margin-top:5px; padding:8px; font-weight:bold; }
+.info-box{ display:none; position:fixed; top:10%; left:10%; right:10%; background:white; color:black; padding:25px; border:4px solid #000; z-index:99; }
+</style>
+</head>
+<body>
+
+<h2>Carica Prodotti</h2>
+<input type="file" id="inputDati" accept=".csv">
+
+<div id="contenitore"></div>
+
+<div id="finestra" class="info-box"></div>
+
+<div id="area-carrello">
+    <h3>Carrello</h3>
+    <div id="lista-carrello"></div>
+    <hr>
+    <p><b>Totale: <span id="euro">0</span> €</b></p>
+    <button onclick="calcola_totale(0,0,'')" style="background:#4caf50; color:white;">Calcola Totale</button>
+</div>
+
+<script>
+var elenco_prod = [];
+var carrello = [];
+
+document.getElementById("inputDati").addEventListener("change", function(e){
+    var lettore = new FileReader();
+    lettore.onload = function(evento){
+        var testo = evento.target.result;
+        var righe = testo.replace(/\r/g, "").split("\n");
+        carica_dati(righe, 1); 
+    };
+    lettore.readAsText(e.target.files[0]);
+});
+
+function carica_dati(righe, i){
+    if(i >= righe.length){
+        disegna_tutto(0);
+        return;
+    }
+    var colonne = righe[i].split(";");
+    if(colonne.length >= 5 && colonne[0] != ""){
+        elenco_prod.push({
+            m: colonne[0].trim(),
+            mo: colonne[1].trim(),
+            de: colonne[2].trim(),
+            im: colonne[3].trim(),
+            pr: colonne[4].trim()
+        });
+    }
+    carica_dati(righe, i + 1);
+}
+
+function disegna_tutto(pos){
+    if(pos >= elenco_prod.length) return;
+    
+    var cont = document.getElementById("contenitore");
+    var div = document.createElement("div");
+    div.className = "blocco";
+    
+    div.innerHTML = "<img src='"+elenco_prod[pos].im+"'>" +
+                    "<p><b>"+elenco_prod[pos].m+"</b></p>" +
+                    "<p>"+elenco_prod[pos].mo+"</p>" +
+                    "<button onclick='apri("+pos+")'>Dettagli</button>" +
+                    "<button onclick='metti_nel_carrello("+pos+")' style='background:#f0f0f0'>Aggiungi</button>";
+    
+    cont.appendChild(div);
+    disegna_tutto(pos + 1);
+}
+
+function apri(id){
+    var f = document.getElementById("finestra");
+    f.style.display = "block";
+    f.innerHTML = "<h2>"+elenco_prod[id].m+" "+elenco_prod[id].mo+"</h2>" +
+                  "<p>"+elenco_prod[id].de+"</p>" +
+                  "<p>Prezzo: "+elenco_prod[id].pr+" €</p>" +
+                  "<button onclick='this.parentElement.style.display=\"none\"'>Chiudi</button>";
+}
+
+function metti_nel_carrello(id){
+    carrello.push(elenco_prod[id]);
+}
+
+function calcola_totale(n, tot, stringa){
+    if(carrello.length == 0){
+        return;
+    }
+    if(n >= carrello.length){
+        document.getElementById("lista-carrello").innerHTML = stringa;
+        document.getElementById("euro").innerText = tot.toFixed(2);
+        return;
+    }
+    
+    var p = parseFloat(carrello[n].pr.replace(",", "."));
+    var riga = "<p>"+carrello[n].m+" "+carrello[n].mo+" - "+carrello[n].pr+" €</p>";
+    
+    calcola_totale(n + 1, tot + p, stringa + riga);
+}
+</script>
+
+</body>
+</html>
