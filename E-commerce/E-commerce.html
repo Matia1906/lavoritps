@@ -83,7 +83,7 @@ function apri(id){
     f.style.display = "block";
     f.innerHTML = "<h2>"+elenco_prod[id].m+" "+elenco_prod[id].mo+"</h2>" +
                   "<p>"+elenco_prod[id].de+"</p>" +
-                  "<p>Prezzo: "+elenco_prod[id].pr+" €</p>" +
+                  "<p>Prezzo: "+elenco_prod[id].pr+" </p>" +
                   "<button onclick='this.parentElement.style.display=\"none\"'>Chiudi</button>";
 }
 
@@ -102,7 +102,7 @@ function calcola_totale(n, tot, stringa){
     }
     
     var p = parseFloat(carrello[n].pr.replace(",", "."));
-    var riga = "<p>"+carrello[n].m+" "+carrello[n].mo+" - "+carrello[n].pr+" €</p>";
+    var riga = "<p>"+carrello[n].m+" "+carrello[n].mo+" - "+carrello[n].pr+" </p>";
     
     calcola_totale(n + 1, tot + p, stringa + riga);
 }
