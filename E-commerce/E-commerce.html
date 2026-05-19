@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" crossorigin="anonymous"></script>
 <style>
-/* stile basato sul file s.txt */
 body{ background-color:#2c2c2c; font-family:Arial; padding:20px; color:#eeeeee; }
 #contenitore{ display:flex; flex-wrap:wrap; gap:15px; }
 .blocco{ background:white; border:2px solid #040008; border-radius:10px; padding:15px; width:200px; color:#333; box-shadow:2px 2px 5px rgba(0,0,0,0.3); }
@@ -27,6 +27,7 @@ button{ cursor:pointer; width:100%; margin-top:5px; padding:8px; font-weight:bol
     <hr>
     <p><b>Totale: <span id="euro">0</span> €</b></p>
     <button onclick="calcola_totale(0,0,'')" style="background:#4caf50; color:white;">Calcola Totale</button>
+    <button id="btn-stampa" onclick="genera_pdf_jspdf()" style="background:#008cba; color:white; margin-top:10px; display:none;">Procedi all'Acquisto (Genera PDF)</button>
 </div>
 
 <script>
@@ -83,7 +84,7 @@ function apri(id){
     f.style.display = "block";
     f.innerHTML = "<h2>"+elenco_prod[id].m+" "+elenco_prod[id].mo+"</h2>" +
                   "<p>"+elenco_prod[id].de+"</p>" +
-                  "<p>Prezzo: "+elenco_prod[id].pr+" </p>" +
+                  "<p>Prezzo: "+elenco_prod[id].pr+" €</p>" +
                   "<button onclick='this.parentElement.style.display=\"none\"'>Chiudi</button>";
 }
 
@@ -92,19 +93,40 @@ function metti_nel_carrello(id){
 }
 
 function calcola_totale(n, tot, stringa){
-    if(carrello.length == 0){
-        return;
-    }
     if(n >= carrello.length){
         document.getElementById("lista-carrello").innerHTML = stringa;
         document.getElementById("euro").innerText = tot.toFixed(2);
+        document.getElementById("btn-stampa").style.display = "block";
         return;
     }
     
     var p = parseFloat(carrello[n].pr.replace(",", "."));
-    var riga = "<p>"+carrello[n].m+" "+carrello[n].mo+" - "+carrello[n].pr+" </p>";
+    var riga = "<p>"+carrello[n].m+" "+carrello[n].mo+" - "+carrello[n].pr+" €</p>";
     
     calcola_totale(n + 1, tot + p, stringa + riga);
+}
+
+function genera_pdf_jspdf(){
+    var doc = new jsPDF();
+    doc.text("RICEVUTA D'ACQUISTO", 15, 20);
+    doc.text("-------------------------", 15, 27);
+    
+    scrivi_righe_pdf(doc, 0, 35);
+}
+
+function scrivi_righe_pdf(doc, n, y){
+    if(n >= carrello.length){
+        var totale = document.getElementById("euro").innerText;
+        doc.text("-------------------------", 15, y);
+        doc.text("Totale: " + totale + " EUR", 15, y + 10);
+        doc.save("ricevuta.pdf");
+        return;
+    }
+    
+    var rigaTesto = carrello[n].m + " " + carrello[n].mo + " - " + carrello[n].pr + " EUR";
+    doc.text(rigaTesto, 15, y);
+    
+    scrivi_righe_pdf(doc, n + 1, y + 10);
 }
 </script>
 
