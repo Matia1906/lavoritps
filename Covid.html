@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione dati</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #c0c0c0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4a5969;
+            color: white;
+        }
+
+        tr.pari {
+            background-color: #f9f9f9;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 5px 5px 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Andamento Nazionale COVID-19</h2>
+
+    <div id="dati-container">Caricamento dei dati</div>
+
+    <h2>Gestione utenti</h2>
+
+    <input id="nome" type="text" placeholder="Nome">
+    <input id="eta" type="number" placeholder="Età">
+
+    <button onclick="aggiungiRiga()">Aggiungi</button>
+
+    <table>
+        <thead id="intestazione"></thead>
+        <tbody id="corpoTabella"></tbody>
+    </table>
+
+    <script>
+        var url = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", url, true);
+
+        xhr.onreadystatechange = function() {
+
+            if (xhr.readyState === 4) {
+
+                if (xhr.status === 200) {
+
+                    var dati = JSON.parse(xhr.responseText);
+
+                    var tabella = document.createElement("table");
+                    var thead = document.createElement("thead");
+                    var tbody = document.createElement("tbody");
+
+                    var obj = dati[0];
+
+                    const numeroChiavi = Object.keys(obj).length;
+                    const keys = Object.keys(obj);
+
+                    var tr = document.createElement("tr");
+
+                    for (var i = 0; i < numeroChiavi; i++) {
+
+                        var th = document.createElement("th");
+                        th.textContent = keys[i];
+                        tr.appendChild(th);
+                    }
+
+                    thead.appendChild(tr);
+                    tabella.appendChild(thead);
+
+                    for (var i = 0; i < dati.length; i++) {
+
+                        var tr = document.createElement("tr");
+
+                        if (i % 2 === 0) {
+                            tr.className = "pari";
+                        }
+
+                        var row = dati[i];
+
+                        for (var j = 0; j < numeroChiavi; j++) {
+
+                            var td = document.createElement("td");
+                            td.textContent = row[keys[j]];
+                            tr.appendChild(td);
+                        }
+
+                        tbody.appendChild(tr);
+                    }
+
+                    tabella.appendChild(tbody);
+
+                    document.getElementById("dati-container").textContent = "";
+                    document.getElementById("dati-container").appendChild(tabella);
+
+                } else {
+
+                    document.getElementById("dati-container").textContent =
+                        "Errore nel caricamento dei dati";
+                }
+            }
+        };
+
+        xhr.onerror = function() {
+            document.getElementById("dati-container").textContent =
+                "Errore di connessione al server";
+        };
+
+        xhr.send();
+
+        function aggiungiRiga() {
+
+            const nome = document.getElementById("nome").value;
+            const eta = document.getElementById("eta").value;
+
+            if (nome === "" || eta === "") {
+                alert("Inserisci nome ed età");
+                return;
+            }
+
+            const utente = {
+                nome: nome,
+                eta: eta
+            };
+
+            const obj = utente;
+
+            const numeroChiavi = Object.keys(obj).length;
+            const keys = Object.keys(obj);
+
+            const intestazione = document.getElementById("intestazione");
+            const tbody = document.getElementById("corpoTabella");
+
+            if (intestazione.innerHTML === "") {
+
+                const rigaIntestazione = document.createElement("tr");
+
+                for (let i = 0; i < numeroChiavi; i++) {
+
+                    const th = document.createElement("th");
+                    th.textContent = keys[i];
+                    rigaIntestazione.appendChild(th);
+                }
+
+                intestazione.appendChild(rigaIntestazione);
+            }
+
+            const riga = document.createElement("tr");
+
+            for (let i = 0; i < numeroChiavi; i++) {
+
+                const td = document.createElement("td");
+                td.textContent = obj[keys[i]];
+                riga.appendChild(td);
+            }
+
+            tbody.appendChild(riga);
+
+            document.getElementById("nome").value = "";
+            document.getElementById("eta").value = "";
+        }
+    </script>
+
+</body>
+</html>
